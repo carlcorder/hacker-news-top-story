@@ -1,0 +1,8 @@
+#story-card {
+	opacity: 1;
+	transition: opacity 1s ease-in-out;
+}
+
+#story-card.fade {
+	opacity: 0;
+}

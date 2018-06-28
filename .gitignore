@@ -1,0 +1,10 @@
+# ignore hidden files
+.*
+!/.gitignore
+
+# ignore dependencies
+functions/node_modules/
+functions/package-lock.json
+
+# pusher config
+functions/pusher.json
