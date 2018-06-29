@@ -47,14 +47,9 @@ let getStory = (id) => {
 }
 
 let shorten = (story) => {
-	return {
-		[story['id']]:
-			{
-				'title': story['title'],
-				'url': story['url']
-			}
-		};
+	return { 'title': story['title'], 'url': story['url'] };
 }
+
 let update = () => {
 	return getTopStoryId()
 				.then(id => getStory(id))
@@ -62,8 +57,9 @@ let update = () => {
 				.then(story => updatePage(story));
 }
 
-// check for updates every 60 seconds
-setInterval(update, 1000 * 60 );
+// update page and check every 5 minutes
+update();
+setInterval(update, 1000 * 60 * 5 );
 
 // ability to update page with push notifications
 channel.bind('update', (data) => updatePage(data));
