@@ -9,7 +9,7 @@ let fade = () => {
 
 // return image preview
 let getPreview = (data) => {
-	const base = 'http://api.linkpreview.net';
+	const base = 'https://api.linkpreview.net';
 	const key = '5b33ebcfdf0ff0d553edaa56fc099be6137ba7a909cc7';
 	const preview = `${base}/?key=${key}&q=${data.url}`;
 	return fetch(preview).then(response => response.json()).then(json => json.image);
