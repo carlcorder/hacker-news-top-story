@@ -1,6 +1,6 @@
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
-let pusher = new Pusher('b4d15e255ae352129b3f', { cluster: 'us2', encrypted: true });
+// Pusher.logToConsole = true;
+let pusher = new Pusher('b4d15e255ae352129b3f', { cluster: 'us2' });
 let channel = pusher.subscribe('top-story');
 
 let fade = () => {
@@ -27,7 +27,7 @@ let changeStory = (data, imageUrl) => {
 	setTimeout(() => {
 		updateStory(data, imageUrl);
 		fade();
-	}, 1200);
+	}, 1000);
 }
 
 let updatePage = (data) => {
@@ -35,4 +35,35 @@ let updatePage = (data) => {
 				.then((imageUrl) => changeStory(data, imageUrl));
 }
 
+let getTopStoryId = () => {
+	return fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+		.then(response => response.json())
+		.then(stories => stories[0]);
+}
+
+let getStory = (id) => {
+	return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+		.then(response => response.json());
+}
+
+let shorten = (story) => {
+	return {
+		[story['id']]:
+			{
+				'title': story['title'],
+				'url': story['url']
+			}
+		};
+}
+let update = () => {
+	return getTopStoryId()
+				.then(id => getStory(id))
+				.then(story => shorten(story))
+				.then(story => updatePage(story));
+}
+
+// check for updates every 60 seconds
+setInterval(update, 1000 * 60 );
+
+// ability to update page with push notifications
 channel.bind('update', (data) => updatePage(data));
