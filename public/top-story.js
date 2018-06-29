@@ -7,6 +7,7 @@ let fade = () => {
 	document.getElementById('story-card').classList.toggle('fade');
 }
 
+// return image preview
 let getPreview = (data) => {
 	const base = 'http://api.linkpreview.net';
 	const key = '5b33ebcfdf0ff0d553edaa56fc099be6137ba7a909cc7';
@@ -21,7 +22,7 @@ let updateStory = (data, imageUrl) => {
  	document.getElementById('story-image').src = imageUrl || 'hn.png';
 }
 
-let transitionStory = (data, imageUrl) => {
+let changeStory = (data, imageUrl) => {
 	fade();
 	setTimeout(() => {
 		updateStory(data, imageUrl);
@@ -29,8 +30,9 @@ let transitionStory = (data, imageUrl) => {
 	}, 1200);
 }
 
-let updatePage = (data) => getPreview(data)
-							.then(imageUrl => transitionStory(data, imageUrl))
-							.error(err => console.error(err));
+let updatePage = (data) => {
+	return getPreview(data)
+				.then((imageUrl) => changeStory(data, imageUrl));
+}
 
 channel.bind('update', (data) => updatePage(data));

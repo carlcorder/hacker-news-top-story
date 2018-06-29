@@ -6,5 +6,6 @@
 functions/node_modules/
 functions/package-lock.json
 
-# pusher config
+# private configs
 functions/pusher.json
+functions/preview.json
