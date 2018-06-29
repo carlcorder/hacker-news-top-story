@@ -73,7 +73,7 @@ let update = () => {
 
 let getPreview = (data) => {
 	return fetch(`${previewUrl}/?key=${previewKey}&q=${data.url}`)
-			.then(response => response.json()).then(json => json.image);
+			.then(response => response.json()).then(json => json.image) || 'hn.png';
 }
 
 app.get('/', (request, response) => {
@@ -85,6 +85,6 @@ app.get('/', (request, response) => {
 });
 
 // check for updates every 60 seconds
-setInterval(update, 1000 * 60 );
+setInterval(update, 1000 * 30 );
 
 exports.app = functions.https.onRequest(app);

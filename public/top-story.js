@@ -1,6 +1,6 @@
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
-let pusher = new Pusher('b4d15e255ae352129b3f', { cluster: 'us2', encrypted: true });
+// Pusher.logToConsole = true;
+let pusher = new Pusher('b4d15e255ae352129b3f', { cluster: 'us2' });
 let channel = pusher.subscribe('top-story');
 
 let fade = () => {
